@@ -156,13 +156,6 @@ class DataClass:
             target_test = self.tgtPath + '.tst.libsvm'
         y, I, K, offset = self._get_TL_Kernel(source_train, source_test, source_para,
                                               target_train, target_test, target_para)
-        # # normalize y (-1 -> 1)
-        # def to_0(x):
-        #     if x == -1:
-        #         return 0
-        #     else:
-        #         return x
-        # y = np.asarray(map(to_0, y))
         return y, I, K, offset
 
     def _get_TL_Kernel(self, source_train, source_test, source_para,
@@ -176,25 +169,17 @@ class DataClass:
         target_train_X, target_train_y = load_svmlight_file(target_train, n_features=self.target_n_features)
         target_test_X, target_test_y = load_svmlight_file(target_test, n_features=self.target_n_features)
         target_para_X, _ = load_svmlight_file(target_para, n_features=self.target_n_features, multilabel=True)
-        ##### default gamma value is taken to be sqrt of the data dimension
-        ##### May need to tune and change the calculation of
-        # if source_gamma == None:
-        #     source_gamma = 1.0 / np.sqrt(source_train_X.shape[1])
-        # if target_gamma == None:
-        #     target_gamma = 1.0 / np.sqrt(target_train_X.shape[1])
 
         if source_test_X.shape[0] == 0:
             source_data = sp.vstack([source_train_X, source_para_X])
         else:
             source_data = sp.vstack([source_train_X, source_test_X, source_para_X])
-        # source_ker = rbf_kernel(source_data, gamma=self.source_gamma)
         source_ker = self.kernel(source_data, gamma=self.source_gamma)
 
         if target_train_X.shape[0] == 0:
             target_data = sp.vstack([target_test_X, target_para_X])
         else:
             target_data = sp.vstack([target_train_X, target_test_X, target_para_X])
-        # target_ker = rbf_kernel(target_data, gamma=self.target_gamma)
         target_ker = self.kernel(target_data, gamma=self.target_gamma)
 
         len_X = [source_train_X.shape[0] , source_test_X.shape[0] , source_para_X.shape[0]
@@ -245,14 +230,12 @@ class DataClass:
         target_train_X, target_train_y = load_svmlight_file(target_train, n_features=self.target_n_features)
         target_test_X, target_test_y = load_svmlight_file(target_test, n_features=self.target_n_features)
 
-        # print(type(target_train_X), type(target_train_y), type(target_test_X))
         len_X = [target_train_X.shape[0] , target_test_X.shape[0]]
         offset = np.cumsum(len_X)
 
         n = offset[1]
 
         target_data = sp.vstack([target_train_X, target_test_X])
-        # target_ker = rbf_kernel(target_data, gamma=self.target_gamma)
         target_ker = self.kernel(target_data, gamma=self.target_gamma)
 
         y = np.zeros(n, dtype=np.float)
@@ -269,13 +252,6 @@ class DataClass:
         if self.kernel_normal:
             K = DataClass.normalize(K)
 
-        # # normalize y (-1 -> 1)
-        # def to_0(x):
-        #     if x == -1:
-        #         return 0
-        #     else:
-        #         return x
-        # y = np.asarray(map(to_0, y))
         return y, I, K, offset
 
     @staticmethod
@@ -303,35 +279,3 @@ class DataClass:
         K = DataClass.complete_TL_Kernel(K, offset)
         return y, I, K, offset
 
-# for testing
-if __name__ == '__main__':
-    dirPath = '/usr0/home/wchang2/research/NIPS2016/data/cls/cls-acl10-postprocess/en_music_de_dvd/'
-    srcPath = dirPath + 'src.256'
-    tgtPath = dirPath + 'tgt.256'
-    prlPath = dirPath
-    source_n_features = 60244
-    target_n_features = 185922
-
-    #  source_train = srcPath + '.trn.libsvm'
-    #  source_test = srcPath + '.tst.libsvm'
-    #  source_para = dirPath + 'prlSrc.libsvm'
-
-    #  target_train = tgtPath + '.trn.libsvm'
-    #  target_test = tgtPath + '.tst.libsvm'
-    #  target_para = dirPath + 'prlTgt.libsvm'
-
-    dc = DataClass()
-    dc = DataClass(srcPath=srcPath, tgtPath=tgtPath, prlPath=prlPath,
-                    valid_flag=False, zero_diag_flag=False, source_data_type='full',
-                    source_n_features=source_n_features, target_n_features=target_n_features,
-                    kernel_type='cosine', kernel_normal=False)
-    y, I, K, offset = dc.get_TL_Kernel()
-    print len(y), len(I), K.shape, offset
-    print K[:10, :10]
-
-    y, I, K, offset = DataClass.reduce_para(y, I, K, offset, 100)
-    print len(y), len(I), K.shape, offset
-    print K[:10, :10]
-    # print K[1,2], K[1000, 999], K[1891,K.shape[1]-1]
-    # print sum(I)
-    # print sum(y)

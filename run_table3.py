@@ -5,7 +5,7 @@ import os
 import numpy as np
 from TLK import run_one
 
-dataPath = '/usr0/home/yuexinw/research/mnist/view1_view2/'
+dataPath = './mnist/view1_view2/'
 kernel_type='rbf'
 tgtSize= 2
 dimDict = {'src': 392, 'tgt': 392}

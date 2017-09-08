@@ -5,7 +5,7 @@ import os
 import numpy as np
 from TLK import run_one
 
-dataPath = '/usr0/home/yuexinw/bonda/research/cls/'
+dataPath = './apr/'
 kernel_type='cosine'
 tgt = ['de', 'fr', 'jp']
 tgtSize= 2
@@ -19,7 +19,7 @@ for d_s in domain:
                 continue
             auc_result = []
             for seed in seed_list:
-                dirPath = dataPath + 'cls_seed_%d/en_%s_%s_%s/' % (seed, d_s, t, d_t)
+                dirPath = dataPath + 'apr_seed_%d/en_%s_%s_%s/' % (seed, d_s, t, d_t)
                 assert(os.path.isdir(dirPath))
                 srcPath = dirPath + 'src.1024'
                 tgtPath = dirPath + 'tgt.%d' % (tgtSize)
