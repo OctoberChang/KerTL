@@ -24,8 +24,8 @@ You can download the APR at
 
 # More Info
 This repository is by
-[Wei-Cheng Chang!](https://octoberchang.github.io),
-[Yuexin Wu!](http://www.cs.cmu.edu/~yuexinwu/),
+[Wei-Cheng Chang](https://octoberchang.github.io),
+[Yuexin Wu](http://www.cs.cmu.edu/~yuexinwu/),
 [Hanxiao Liu](http://www.cs.cmu.edu/~hanxiaol/),
 [Yiming Yang](http://www.cs.cmu.edu/~yiming/),
 and contains the source code to
