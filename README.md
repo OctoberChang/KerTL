@@ -2,7 +2,7 @@
 Code accompanying the paper [Cross-Domain Kernel Induction for Transfer Learning](http://www.cs.cmu.edu/~hanxiaol/publications/chang-wu-aaai17.pdf).
 
 # Prerequisites
-    - Python, NumPy, Scipy
+    - Python, NumPy, Scipy, scikit-learn
     - CVXOPT
 
 # Usage
