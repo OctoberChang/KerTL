@@ -13,7 +13,7 @@ To reproduce KerTL result in Table 2 of our paper, run
 
 To reproduce KerTL result in Table 3 of our paper, run
 ```
-    $ python run_table_2.py
+    $ python run_table_3.py
 ```
 
 
