@@ -20,7 +20,8 @@ To reproduce KerTL result in Table 3 of our paper, run
 # Dataset
 Use
 ```
-$ 7z x mnist.7z apr.7z -o.
+$ 7z x mnist.7z -o.
+$ 7z x apr.7z -o.
 ```
 to decompress the data into the current folder.
 
