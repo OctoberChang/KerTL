@@ -8,12 +8,12 @@ Code accompanying the paper [Cross-Domain Kernel Induction for Transfer Learning
 # Usage
 To reproduce KerTL result in Table 2 of our paper, run
 ```
-    $ python run_table_2.py
+    $ python run_table2.py
 ```
 
 To reproduce KerTL result in Table 3 of our paper, run
 ```
-    $ python run_table_3.py
+    $ python run_table3.py
 ```
 
 
